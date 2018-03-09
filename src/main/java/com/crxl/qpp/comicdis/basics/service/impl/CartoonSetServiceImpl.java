@@ -30,6 +30,7 @@ public class CartoonSetServiceImpl {
     public List<CartoonSet> getCartoonSetByDistributor(String cartoonId) {
        // PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         List<CartoonSet> list=cartoonSetMapper.selectCartoonSet(cartoonId);
+        System.out.println("缓存");
         return list;
     }
     /**
