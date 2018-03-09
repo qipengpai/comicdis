@@ -6,6 +6,7 @@ import com.crxl.qpp.comicdis.tool.PageInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -22,6 +23,7 @@ public class CartoonServiceImpl {
      * @param [pageInfo]
      * @return com.github.pagehelper.Page<com.crxl.qpp.comicdis.basics.entity.Cartoon>
      */
+    //@Cacheable(value = "Cartoon",key="#root.methodName.concat(#pageInfo.getPageNum()).concat(#pageInfo.getPageSize())")
     public  Page<Cartoon> getCartoonByDistributor(PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return cartoonMapper.selectCartoon(pageInfo);
@@ -35,6 +37,7 @@ public class CartoonServiceImpl {
      * @param [cartoonid]
      * @return com.crxl.qpp.comicdis.basics.entity.Cartoon
      */
+    @Cacheable(value = "Cartoon",key="#root.methodName.concat(#cartoonid)")
     public Cartoon getById(String cartoonid) {
         return cartoonMapper.selectById(cartoonid);
     }

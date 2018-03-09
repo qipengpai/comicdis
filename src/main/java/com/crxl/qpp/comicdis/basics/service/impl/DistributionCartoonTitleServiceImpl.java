@@ -4,6 +4,7 @@ import com.crxl.qpp.comicdis.basics.dao.DistributionCartoonTitleMapper;
 import com.crxl.qpp.comicdis.basics.entity.DistributionCartoonTitle;
 import com.crxl.qpp.comicdis.basics.entity.data.CartoonData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,6 +23,8 @@ public class DistributionCartoonTitleServiceImpl {
      * @param [cartoonData]
      * @return java.util.List<com.crxl.qpp.comicdis.basics.entity.DistributionCartoonTitle>
      */
+
+    @Cacheable(value = "DistributorCartoonTitle",key = "#root.methodName.concat(#cartoonData.getId())")
     public List<DistributionCartoonTitle> selectCartoonTitle(CartoonData cartoonData) {
         return distributionCartoonTitleMapper.selectByCartoonId(cartoonData.getId());
     }

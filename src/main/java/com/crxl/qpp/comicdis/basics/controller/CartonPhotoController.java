@@ -59,9 +59,8 @@ public class CartonPhotoController {
             throws Exception {
         //  查询漫画图片列表
         List<CartoonPhoto> list= cartoonPhotoServiceImpl.generateCover(cartoonPhotoData);
-        if (!ParaClick.clickList(list)) {
+        if (!ParaClick.clickList(list))
             return new Model(500, "查询失败");
-        }
         //PageInfo<CartoonPhoto> pageInfos = new PageInfo<>(list);
         return new Model(list);
     }

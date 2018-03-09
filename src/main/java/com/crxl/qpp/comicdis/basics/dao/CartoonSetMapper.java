@@ -6,6 +6,8 @@ import com.github.pagehelper.Page;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface CartoonSetMapper {
     int deleteByPrimaryKey(String id);
@@ -21,7 +23,7 @@ public interface CartoonSetMapper {
     int updateByPrimaryKey(CartoonSet record);
 
     //分页查询漫画集数列表
-    Page<CartoonSet> selectCartoonSet(@Param("cartoonId")String cartoonId);
+    List<CartoonSet> selectCartoonSet(@Param("cartoonId")String cartoonId);
 
     //根据排序查询每集
     CartoonSet selectBySort(@Param("cartoonId")String cartoonId,@Param("sort")int sort);

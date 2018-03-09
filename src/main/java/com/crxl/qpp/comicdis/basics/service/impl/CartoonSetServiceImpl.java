@@ -7,7 +7,10 @@ import com.crxl.qpp.comicdis.tool.PageInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class CartoonSetServiceImpl {
@@ -23,9 +26,11 @@ public class CartoonSetServiceImpl {
      * @param [pageInfo, cartoonId]
      * @return com.github.pagehelper.Page<com.crxl.qpp.comicdis.basics.entity.CartoonSet>
      */
-    public Page<CartoonSet> getCartoonSetByDistributor(String cartoonId) {
+    @Cacheable(value="CartoonSet",key="#root.methodName.concat(#cartoonId)")
+    public List<CartoonSet> getCartoonSetByDistributor(String cartoonId) {
        // PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
-        return cartoonSetMapper.selectCartoonSet(cartoonId);
+        List<CartoonSet> list=cartoonSetMapper.selectCartoonSet(cartoonId);
+        return list;
     }
     /**
      *    獲取下一集id
@@ -35,6 +40,7 @@ public class CartoonSetServiceImpl {
      * @param [id]
      * @return com.crxl.qpp.comicdis.basics.entity.CartoonSet
      */
+    @Cacheable(value="CartoonSet",key="#root.methodName.concat(#id)")
     public CartoonSet getNextCartoonSetId(String id) {
         CartoonSet cartoonSet= cartoonSetMapper.selectByPrimaryKey(id);
         if (cartoonSet==null)

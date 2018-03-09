@@ -7,6 +7,8 @@ import com.crxl.qpp.comicdis.exception.BusinessException;
 import com.crxl.qpp.comicdis.tool.DateUtil;
 import com.crxl.qpp.comicdis.tool.MD5;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -48,6 +50,8 @@ public class DistributorServiceImpl {
      * @param [authorization, newUserPwd, userPwd]
      * @return boolean
      */
+    @CacheEvict(cacheNames="Distributor", allEntries=true)
+    @Transactional(propagation = Propagation.REQUIRED)
     public boolean distributorUpdateUserPwd(String authorization, String newUserPwd, String userPwd) {
         boolean flag=false;
         int sign =distributorMapper.updateUserPwd(authorization,MD5.getMd5(newUserPwd),MD5.getMd5(userPwd));
@@ -65,6 +69,7 @@ public class DistributorServiceImpl {
      * @param [authorization]
      * @return com.crxl.qpp.comicdis.basics.entity.Distributor
      */
+    @Cacheable(value = "Distributor",key = "#root.methodName.concat(#distributorId)")
     public Distributor getDistributorById(String distributorId) {
         return distributorMapper.selectQdByPrimaryKey(distributorId);
     }
@@ -77,12 +82,20 @@ public class DistributorServiceImpl {
      * @param [username]
      * @return com.crxl.qpp.comicdis.basics.entity.Distributor
      */
+    //@Cacheable(value = "Distributor",key = "#root.methodName.concat(#username)")
     public Distributor getUser(String username) {
-
         return distributorMapper.getDistributor(username);
     }
 
 
+    /**
+     *    为用户权限验证用
+     *
+     * @author pengpai
+     * @date 2018/3/9 13:26
+     * @param [username]
+     * @return com.crxl.qpp.comicdis.basics.entity.data.DistributorData
+     */
     public DistributorData getDistributorData(String username) {
         return distributorMapper.getDistributorData(username);
     }

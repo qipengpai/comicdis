@@ -5,6 +5,7 @@ import com.crxl.qpp.comicdis.basics.entity.DistributorNews;
 import com.crxl.qpp.comicdis.tool.PageInfo;
 import com.github.pagehelper.PageHelper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public class DistributorNewsServiceImpl {
      * @param [pageInfo]
      * @return java.util.List<com.crxl.qpp.comicdis.basics.entity.DistributorNews>
      */
+    @Cacheable(value = "News",key = "#root.methodName")
     public List<DistributorNews> selectNews() {
         return distributorNewsMapper.selectNews();
     }

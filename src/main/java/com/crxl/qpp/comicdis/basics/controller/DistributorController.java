@@ -56,18 +56,15 @@ public class DistributorController {
   //  @RequiresRoles("admin")
     public Model userUpdatePwd(DistributorData distributorData)
             throws Exception {
-        if (ParaClick.clickString(distributorData.getNewUserPwd())) {
+        if (ParaClick.clickString(distributorData.getNewUserPwd()))
             return new Model(500, "请输入新密码");
-        }
-        if (ParaClick.clickString(distributorData.getUserPwd())) {
+        if (ParaClick.clickString(distributorData.getUserPwd()))
             return new Model(500, "请输入原密码");
-        }
         //  修改密码
         boolean flag = distributorService
                 .distributorUpdateUserPwd(distributorData.getId(),distributorData.getNewUserPwd(),distributorData.getUserPwd());
-        if (!flag) {
+        if (!flag)
             return new Model(500, "修改密码失败");
-        }
         return new Model(200, "修改密码成功");
     }
     /**

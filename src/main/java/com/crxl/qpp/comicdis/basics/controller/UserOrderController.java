@@ -1,6 +1,5 @@
 package com.crxl.qpp.comicdis.basics.controller;
 
-import com.crxl.qpp.comicdis.basics.entity.Cartoon;
 import com.crxl.qpp.comicdis.basics.entity.Distributor;
 import com.crxl.qpp.comicdis.basics.entity.data.Withdrawals;
 import com.crxl.qpp.comicdis.basics.service.impl.DistributorServiceImpl;

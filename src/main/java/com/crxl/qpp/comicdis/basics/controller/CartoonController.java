@@ -35,9 +35,8 @@ public class CartoonController {
         //  查询漫画列表
         Page<Cartoon> list= cartoonServiceImpl
                 .getCartoonByDistributor(pageInfo);
-        if (!ParaClick.clickList(list)) {
+        if (!ParaClick.clickList(list))
             return new Model(500, "查询失败");
-        }
         PageInfo<Cartoon> pageInfos = new PageInfo<>(list);
         return new Model(pageInfos);
     }

@@ -6,6 +6,7 @@ import com.crxl.qpp.comicdis.basics.entity.DistributorCartoonModel;
 import com.crxl.qpp.comicdis.basics.entity.DistributorOrder;
 import com.crxl.qpp.comicdis.basics.entity.DistributorOrderTotal;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,7 @@ public class DistributorOrderServiceImpl {
      * @param [authorization]
      * @return java.util.List<com.crxl.qpp.comicdis.basics.entity.DistributorOrder>
      */
+    @Cacheable(value = "DistributorOrder",key="#root.methodName.concat(#authorization)")
     public List<DistributorOrder> selectOrderTotalNear30Days(String authorization) {
         return distributorOrderMapper.selectOrderTotalNear30Days(authorization);
     }

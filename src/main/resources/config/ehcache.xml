@@ -2,12 +2,13 @@
 <ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd"
          updateCheck="false">
-    <diskStore path="D://TempObject"/>
+    <diskStore path="java.io.tmpdir"/>
     <!-- DefaultCache setting. -->
-    <defaultCache maxElementsInMemory="1000" eternal="false"
-                  timeToIdleSeconds="120" timeToLiveSeconds="120" maxElementsOnDisk="1000000"
+  <!--  <defaultCache maxElementsInMemory="1000" eternal="false"
+                  timeToIdleSeconds="120"
+                  timeToLiveSeconds="120" maxElementsOnDisk="1000000"
                   overflowToDisk="true" memoryStoreEvictionPolicy="LRU">
-    </defaultCache>
+    </defaultCache>-->
 
     <!-- 配置自定义缓存 name:cache唯一标识 maxElementsInMemory：缓存中最大缓存对象数 eternal：缓存中对象是否永久有效
         ，如果是，超时设置将被忽略，对象从不过期。 timeToIdleSeconds：缓存清除时间, 缓存数据的钝化时间，也就是在一个元素消亡之前，
@@ -36,14 +37,14 @@
     上面的表示此缓存最多可以存活3分钟，如果期间超过2分钟未访问 那么此缓存失效！ -->
 
 
-    <!-- 漫画相关缓存  （模糊查询）  + -->
-    <cache name="CartoonLike"
-           maxElementsInMemory="20000"
-           maxEntriesLocalHeap="20000"
+    <!-- 本月与总数据缓存  -->
+    <cache name="DistributorTotalYmd"
+           maxElementsInMemory="2000"
+           maxEntriesLocalHeap="2000"
            eternal="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
-           overflowToDisk="true"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="1800"
+           overflowToDisk="false"
            diskSpoolBufferSizeMB="20"
            maxEntriesLocalDisk="1000"
            diskExpiryThreadIntervalSeconds="120"
@@ -51,46 +52,121 @@
            memoryStoreEvictionPolicy="LRU"/>
 
 
-    <!-- 漫画相关 关注 缓存 （用户是否关注 关注） 完成 （书架缓存坐不了）   + -->
-    <cache name="CartoonFollow"
-           maxElementsInMemory="200000"
-           maxEntriesLocalHeap="200000"
+    <!-- 漫画相关缓存 -->
+    <cache name="Cartoon"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
            eternal="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
-           overflowToDisk="true"
-           diskSpoolBufferSizeMB="300"
-           maxEntriesLocalDisk="100000"
-           diskExpiryThreadIntervalSeconds="0"
-           diskPersistent="true"
+           timeToIdleSeconds="1200"
+           timeToLiveSeconds="1200"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="1000"
            memoryStoreEvictionPolicy="LRU"/>
 
     <!-- 漫画集数列表   初步完成 -->
     <cache name="CartoonSet"
-           maxElementsInMemory="10000"
-           maxEntriesLocalHeap="10000"
-           overflowToDisk="true"
+           maxElementsInMemory="1000"
+           maxEntriesLocalHeap="1000"
+           overflowToDisk="false"
            eternal="false"
-           timeToIdleSeconds="120"
-           timeToLiveSeconds="120"
-           diskSpoolBufferSizeMB="200"
-           maxEntriesLocalDisk="10000000"
-           diskExpiryThreadIntervalSeconds="120"
-           diskPersistent="true"
+           timeToIdleSeconds="600"
+           timeToLiveSeconds="600"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="1000"
            memoryStoreEvictionPolicy="LRU"/>
 
     <!-- 漫画图片相应缓存    已完成   + -->
     <cache name="CartoonPhoto"
            maxElementsInMemory="20000"
            maxEntriesLocalHeap="20000"
-           eternal="true"
+           eternal="false"
            timeToIdleSeconds="120"
            timeToLiveSeconds="120"
            overflowToDisk="true"
-           diskSpoolBufferSizeMB="200"
+           diskSpoolBufferSizeMB="20"
            maxEntriesLocalDisk="100000"
            diskExpiryThreadIntervalSeconds="0"
            diskPersistent="true"
            memoryStoreEvictionPolicy="LRU"/>
+    <!-- 结算单缓存    已完成   + -->
+    <cache name="Withdrawals"
+           maxElementsInMemory="2000"
+           maxEntriesLocalHeap="2000"
+           eternal="false"
+           timeToIdleSeconds="1200"
+           timeToLiveSeconds="1200"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="1000"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
+    <!-- 分销商用户缓存    已完成   + -->
+    <cache name="Distributor"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="1800"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="100"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
 
+    <!-- 分销商最近30天收益缓存    已完成   + -->
+    <cache name="DistributorOrder"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
+           eternal="false"
+           timeToIdleSeconds="1800"
+           timeToLiveSeconds="1800"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="100"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
+    <!-- 分销商最近30天收益缓存    已完成   + -->
+    <cache name="News"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
+           eternal="false"
+           timeToIdleSeconds="1700"
+           timeToLiveSeconds="1700"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="100"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
+
+    <!-- 分销商漫画封面缓存    已完成   + -->
+    <cache name="DistributorCartoonModel"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
+           eternal="false"
+           timeToIdleSeconds="1600"
+           timeToLiveSeconds="1600"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="100"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
+    <!-- 分销商漫画标题缓存    已完成   + -->
+    <cache name="DistributorCartoonTitle"
+           maxElementsInMemory="200"
+           maxEntriesLocalHeap="200"
+           eternal="false"
+           timeToIdleSeconds="1500"
+           timeToLiveSeconds="1500"
+           overflowToDisk="false"
+           diskSpoolBufferSizeMB="20"
+           maxEntriesLocalDisk="100"
+           diskExpiryThreadIntervalSeconds="0"
+           diskPersistent="true"
+           memoryStoreEvictionPolicy="LRU"/>
 </ehcache>

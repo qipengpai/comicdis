@@ -37,15 +37,14 @@ public class CartoonSetController {
      * @return com.crxl.qpp.comicdis.tool.Model
      */
     @RequestMapping(value = ActionUrl.DISTRIBUTOR_GET_CARTOONSET, method = RequestMethod.POST)
-    @RequiresAuthentication
+    //@RequiresAuthentication
     public Model userRegisterSend(CartoonSetData cartoonSetData)
             throws Exception {
         //  查询漫画集数列表
         List<CartoonSet> list= cartoonSetServiceImpl
                 .getCartoonSetByDistributor(cartoonSetData.getCartoonid());
-        if (!ParaClick.clickList(list)) {
+        if (!ParaClick.clickList(list))
             return new Model(500, "查询失败");
-        }
         // 查询漫画主鍵
         Cartoon cartoon=cartoonServiceImpl.getById(list.get(0).getCartoonid());
         if (cartoon==null)

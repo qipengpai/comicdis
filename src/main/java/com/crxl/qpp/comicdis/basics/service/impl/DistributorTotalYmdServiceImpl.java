@@ -3,6 +3,7 @@ package com.crxl.qpp.comicdis.basics.service.impl;
 import com.crxl.qpp.comicdis.basics.dao.DistributorTotalYmdMapper;
 import com.crxl.qpp.comicdis.basics.entity.DistributorTotalYmd;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,7 @@ public class DistributorTotalYmdServiceImpl {
      * @param [authorization]
      * @return java.util.List<com.crxl.qpp.comicdis.basics.entity.DistributorTotalYmd>
      */
+    @Cacheable(value="DistributorTotalYmd",key="#root.methodName.concat(#authorization)" )
     public List<DistributorTotalYmd> selectOrderTotalThisMonth(String authorization) {
         return distributorTotalYmdMapper.selectOrderTotalThisMonth(authorization);
     }
