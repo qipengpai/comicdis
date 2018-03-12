@@ -23,7 +23,7 @@ public class CartoonServiceImpl {
      * @param [pageInfo]
      * @return com.github.pagehelper.Page<com.crxl.qpp.comicdis.basics.entity.Cartoon>
      */
-    //@Cacheable(value = "Cartoon",key="#root.methodName.concat(#pageInfo.getPageNum()).concat(#pageInfo.getPageSize())")
+    @Cacheable(value = "Cartoon",key="#root.methodName.concat(#pageInfo.getPageNum()).concat(#pageInfo.getPageSize()).concat(#pageInfo.condition)")
     public  Page<Cartoon> getCartoonByDistributor(PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(), pageInfo.getPageSize());
         return cartoonMapper.selectCartoon(pageInfo);

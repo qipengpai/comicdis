@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class CartoonSet {
+import java.io.Serializable;
+
+public class CartoonSet implements Serializable {
     private String id;
 
     private String barragecount;

@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class Product {
+import java.io.Serializable;
+
+public class Product implements Serializable {
     private String id;
 
     private Integer hot;

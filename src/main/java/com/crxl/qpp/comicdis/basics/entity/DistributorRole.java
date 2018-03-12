@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class DistributorRole {
+import java.io.Serializable;
+
+public class DistributorRole implements Serializable {
     private String id;
 
     private String distributorid;

@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class CartoonTask {
+import java.io.Serializable;
+
+public class CartoonTask implements Serializable {
     private Integer id;
 
     private String impldate;

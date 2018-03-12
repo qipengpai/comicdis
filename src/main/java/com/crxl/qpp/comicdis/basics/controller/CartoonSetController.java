@@ -37,7 +37,7 @@ public class CartoonSetController {
      * @return com.crxl.qpp.comicdis.tool.Model
      */
     @RequestMapping(value = ActionUrl.DISTRIBUTOR_GET_CARTOONSET, method = RequestMethod.POST)
-    //@RequiresAuthentication
+    @RequiresAuthentication
     public Model userRegisterSend(CartoonSetData cartoonSetData)
             throws Exception {
         //  查询漫画集数列表

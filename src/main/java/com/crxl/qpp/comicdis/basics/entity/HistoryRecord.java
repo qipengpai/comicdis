@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class HistoryRecord {
+import java.io.Serializable;
+
+public class HistoryRecord  implements Serializable {
     private String id;
 
     private String cartoonid;

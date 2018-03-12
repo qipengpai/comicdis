@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class UserOrder {
+import java.io.Serializable;
+
+public class UserOrder implements Serializable {
     private String id;
 
     private Integer ordercurrency;

@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class Administrators {
+import java.io.Serializable;
+
+public class Administrators  implements Serializable {
     private String id;
 
     private String adminname;

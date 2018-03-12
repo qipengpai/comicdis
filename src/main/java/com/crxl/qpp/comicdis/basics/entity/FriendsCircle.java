@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class FriendsCircle {
+import java.io.Serializable;
+
+public class FriendsCircle implements Serializable {
     private String id;
 
     private String aite;

@@ -26,6 +26,14 @@ public class CorsConfig extends WebMvcConfigurerAdapter {
  return new CorsFilter(source);
  }
  }*/
+/**
+ *    说是拦截器
+ *
+ * @author pengpai
+ * @date 2018/3/10 15:50
+ * @param
+ * @return
+ */
 @Configuration
 public class CorsConfig extends WebMvcConfigurerAdapter {
     public void addCorsMappings(CorsRegistry registry) {

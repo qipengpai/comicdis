@@ -83,7 +83,14 @@ public class DruidDataSourceConfig implements EnvironmentAware {
         return filterRegistrationBean;
     }
 
-    // 按照BeanId来拦截配置 用来bean的监控
+    /**
+     *    按照BeanId来拦截配置 用来bean的监控
+     *
+     * @author pengpai
+     * @date 2018/3/10 15:51
+     * @param []
+     * @return com.alibaba.druid.support.spring.stat.DruidStatInterceptor
+     */
     @Bean(value = "druid-stat-interceptor")
     public DruidStatInterceptor DruidStatInterceptor() {
         DruidStatInterceptor druidStatInterceptor = new DruidStatInterceptor();

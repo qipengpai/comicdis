@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class CartoonType {
+import java.io.Serializable;
+
+public class CartoonType implements Serializable {
     private String id;
 
     private String cartoontype;

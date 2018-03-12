@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class VeryOk {
+import java.io.Serializable;
+
+public class VeryOk  implements Serializable {
     private String id;
 
     private String cartoonsetid;

@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class UserEntity {
+import java.io.Serializable;
+
+public class UserEntity implements Serializable {
     private String userid;
 
     private String city;

@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class CartoonAllType {
+import java.io.Serializable;
+
+public class CartoonAllType  implements Serializable {
     private String id;
 
     private String cartoonid;

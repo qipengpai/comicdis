@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class FirstType {
+import java.io.Serializable;
+
+public class FirstType implements Serializable {
     private String id;
 
     private String firsttype;

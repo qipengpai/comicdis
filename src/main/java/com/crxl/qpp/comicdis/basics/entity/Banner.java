@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class Banner {
+import java.io.Serializable;
+
+public class Banner  implements Serializable {
     private String id;
 
     private String cartoonid;

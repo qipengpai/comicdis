@@ -2,6 +2,7 @@ package com.crxl.qpp.comicdis.basics.service.impl;
 
 import com.crxl.qpp.comicdis.basics.dao.DistributorWithdrawalsMapper;
 import com.crxl.qpp.comicdis.basics.entity.DistributorTotalYmd;
+import com.crxl.qpp.comicdis.basics.entity.DistributorWithdrawals;
 import com.crxl.qpp.comicdis.tool.PageInfo;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
@@ -23,8 +24,8 @@ public class DistributorWithdrawalsServiceImpl {
      * @return com.github.pagehelper.Page<com.crxl.qpp.comicdis.basics.entity.DistributorTotalYmd>
      */
     @Cacheable(value="Withdrawals",key = "#root.methodName.concat(#authorization).concat(#pageInfo.getPageNum()).concat(#pageInfo.getPageSize()).concat(#pageInfo.getStartDate()).concat(#pageInfo.getEndDate())")
-    public Page<DistributorTotalYmd> selectWithdrawals(String authorization, PageInfo pageInfo) {
+    public Page<DistributorWithdrawals> selectWithdrawals(String authorization, PageInfo pageInfo) {
         PageHelper.startPage(pageInfo.getPageNum(),pageInfo.getPageSize());
-        return distributorWithdrawalsMapper.selectWithdrawals(authorization,pageInfo.getStartDate()+"00:00:00",pageInfo.getEndDate()+"23:59:59");
+        return distributorWithdrawalsMapper.selectWithdrawals(authorization,pageInfo.getStartDate()+" 00:00:00",pageInfo.getEndDate()+" 23:59:59");
     }
 }

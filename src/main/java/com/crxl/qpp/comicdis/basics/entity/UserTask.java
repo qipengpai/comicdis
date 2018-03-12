@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class UserTask {
+import java.io.Serializable;
+
+public class UserTask implements Serializable {
     private String id;
 
     private Integer buttonstate;

@@ -1,35 +1,46 @@
 package com.crxl.qpp.comicdis.quartz;
 
+import com.crxl.qpp.comicdis.basics.service.impl.UserOrderServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
-@Component
-public class TestTime {
+import java.util.Date;
 
-//    @Scheduled(cron = "0 0/1 * * * ?") // 每分钟执行一次
-//    public void work() throws Exception {
-//        System.out.println("执行调度任务："+new Date());
-//    }
-//
-//
-//    @Scheduled(fixedRate = 5000)//每5秒执行一次
-//    public void play() throws Exception {
-//        System.out.println("执行Quartz定时器任务："+new Date());
-//    }
-//
-//
-//
-//    @Scheduled(cron = "0/2 * * * * ?") //每2秒执行一次
-//    public void doSomething() throws Exception {
-//        System.out.println("每2秒执行一个的定时任务："+new Date());
-//    }
-//
-//
-//
-//
-//    @Scheduled(cron = "0 0 0/1 * * ? ") // 每一小时执行一次
-//    public void goWork() throws Exception {
-//        System.out.println("每一小时执行一次的定时任务："+new Date());
-//    }
+@Component
+public class DistributionQuartz {
+
+    @Autowired
+    private UserOrderServiceImpl userOrderServiceImpl;
+
+
+    @Scheduled(cron = "0 3 0 ? * *")
+    public void distributorTotalYmd() throws Exception {
+        if (userOrderServiceImpl.distributorTotalYmd()) {
+            System.out.println("----------------更新distributorTotalYmd数据成功---------------");
+        } else {
+            System.out.println("----------------更新distributorTotalYmd数据失败---------------");
+        }
+        System.out.println("执行调度任务：" + new Date());
+    }
+
+    @Scheduled(cron = "0 2 0 ? * *")
+    public void distributorTotal() throws Exception {
+        if (userOrderServiceImpl.distributorOrderTotal()) {
+            System.out.println("----------------更新DistributorOrderTotal数据成功---------------");
+        } else {
+            System.out.println("----------------更新DistributorOrderTotal数据失败---------------");
+        }
+    }
+
+    @Scheduled(cron = "0 1 0 ? * *") //每2秒执行一次
+    public void distributorWithdrawals() {
+        if (userOrderServiceImpl.distributorWithdrawals()) {
+            System.out.println("----------------更新distributorWithdrawals数据成功---------------");
+        } else {
+            System.out.println("----------------更新distributorWithdrawals数据失败---------------");
+        }
+    }
 
 
     /**

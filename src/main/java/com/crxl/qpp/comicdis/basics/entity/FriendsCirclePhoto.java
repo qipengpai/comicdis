@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class FriendsCirclePhoto {
+import java.io.Serializable;
+
+public class FriendsCirclePhoto implements Serializable {
     private String id;
 
     private String friendcircleid;

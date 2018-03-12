@@ -43,7 +43,7 @@ public class CartoonPhotoServiceImpl {
      * @author pengpai
      * @date 2018/3/5 18:09
      */
-    @Cacheable(value = "CartoonPhoto",key="#root.methodName.concat(#cartoonPhotoData.cartoonid).concat(#Integer.parseInt(cartoonPhotoData.getSort()) + 1)")
+    @Cacheable(value = "CartoonPhoto",key="#root.methodName.concat(#cartoonPhotoData.cartoonid).concat(#cartoonPhotoData.getSort())")
     public List<CartoonPhoto> generateCover(CartoonPhotoData cartoonPhotoData) {
         List<CartoonPhoto> list = cartoonPhotoMapper.generateCover(cartoonPhotoData.getCartoonid(), Integer.parseInt(cartoonPhotoData.getSort()) + 1);
         return list;

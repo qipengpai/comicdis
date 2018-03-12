@@ -2,7 +2,9 @@ package com.crxl.qpp.comicdis.basics.entity;
 
 import com.crxl.qpp.comicdis.tool.Uuid;
 
-public class DistributorCartoonModel {
+import java.io.Serializable;
+
+public class DistributorCartoonModel implements Serializable {
     private String id= Uuid.getUUID();
 
     private String impldate;

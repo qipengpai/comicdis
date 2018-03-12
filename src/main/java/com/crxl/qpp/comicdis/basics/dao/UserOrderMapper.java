@@ -23,4 +23,16 @@ public interface UserOrderMapper {
 
     //查该分销商当日流水统计
     Withdrawals getUserOrderWithdrawals(@Param("qd") String qd,@Param("orderDescription") String orderDescription);
+
+    //查该分销商本月收益
+    Withdrawals distributorTotalYmd(@Param("qd")String qd,@Param("description")String description);
+
+    //查该分销商全部收益
+    Withdrawals distributorTotalAll(@Param("qd")String qd,@Param("description")String description);
+
+    //定时统计每天各个渠道商的各项数据
+    Withdrawals distributorOrderTotal(@Param("qd")String qd, @Param("description")String description);
+
+    //定时统计各分销商昨日结算单
+    Withdrawals selectDistributorWithdrawals(@Param("qd")String qd);
 }

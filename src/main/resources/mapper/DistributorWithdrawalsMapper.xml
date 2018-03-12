@@ -152,10 +152,83 @@
   </update>
 
   <!--分页 时间查询结算单-->
-  <select id="selectWithdrawals">
+  <select id="selectWithdrawals" resultMap="BaseResultMap">
     SELECT
     <include refid="Base_Column_List"/>
-    FROM Distributorwithdrawals WHERE distridutionId = #{authorization,jdbcType=VARCHAR} AND withdrawalsDate
-    BETWEEN #{startDate,jdbcType=VARCHAR} AND #{endDate,jdbcType=VARCHAR}
+    FROM Distributorwithdrawals WHERE distridutionId = #{authorization,jdbcType=VARCHAR}
+    AND DATE_SUB(CURDATE(), INTERVAL 61 DAY) &lt; date(withdrawalsDate)
+    AND withdrawalsDate &gt; #{startDate,jdbcType=VARCHAR} AND withdrawalsDate &lt; #{endDate,jdbcType=VARCHAR}
   </select>
+
+
+  <insert id="addDistributorWithdrawals">
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into distributorwithdrawals
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="distridutionid != null">
+        distridutionId,
+      </if>
+      <if test="impldate != null">
+        impldate,
+      </if>
+      <if test="proportion != null">
+        proportion,
+      </if>
+      <if test="remarks != null">
+        remarks,
+      </if>
+      <if test="withdrawalsdate != null">
+        withdrawalsDate,
+      </if>
+      <if test="withdrawalsmoney != null">
+        withdrawalsMoney,
+      </if>
+      <if test="withdrawalsstate != null">
+        withdrawalsState,
+      </if>
+      <if test="ordersum != null">
+        orderSum,
+      </if>
+      <if test="todayrecharge != null">
+        todayRecharge,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="distridutionid != null">
+        #{distridutionid,jdbcType=VARCHAR},
+      </if>
+      <if test="impldate != null">
+        #{impldate,jdbcType=VARCHAR},
+      </if>
+      <if test="proportion != null">
+        #{proportion,jdbcType=DOUBLE},
+      </if>
+      <if test="remarks != null">
+        #{remarks,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawalsdate != null">
+        #{withdrawalsdate,jdbcType=VARCHAR},
+      </if>
+      <if test="withdrawalsmoney != null">
+        #{withdrawalsmoney,jdbcType=DOUBLE},
+      </if>
+      <if test="withdrawalsstate != null">
+        #{withdrawalsstate,jdbcType=INTEGER},
+      </if>
+      <if test="ordersum != null">
+        #{ordersum,jdbcType=INTEGER},
+      </if>
+      <if test="todayrecharge != null">
+        #{todayrecharge,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
 </mapper>

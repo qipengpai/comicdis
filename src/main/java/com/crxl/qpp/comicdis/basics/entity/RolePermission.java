@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class RolePermission {
+import java.io.Serializable;
+
+public class RolePermission implements Serializable {
     private String id;
 
     private String permissionid;

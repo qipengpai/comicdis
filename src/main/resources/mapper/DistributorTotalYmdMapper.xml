@@ -24,6 +24,10 @@
     recharge, rechargePersonNum, totalType, vipRecharge, vipRechargeNum
   </sql>
 
+  <sql id="Custom_Sql2">
+    id, distridutionId
+  </sql>
+
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
@@ -176,4 +180,128 @@
     ORDER BY totalType ASC
   </select>
 
+  <!--查看分销商是否已有记录-->
+  <select id="selectByDistributorId" resultMap="BaseResultMap">
+    SELECT
+    <include refid="Custom_Sql2"/>
+    FROM Distributortotalymd WHERE distridutionId = #{id,jdbcType=VARCHAR}
+    ORDER BY totalType ASC
+  </select>
+
+  <!--/实/例化更新后本月和全部收益及数据(老用户)-->
+  <update id="updateDistributorTotal">
+    update distributortotalymd
+    <set>
+      <if test="distridutionid != null">
+        distridutionid = #{distridutionid,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        impldate = #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        ordinaryrecharge = #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="numCount != null">
+        ordinaryrechargenum = #{numCount,jdbcType=INTEGER},
+      </if>
+      <if test="percapitarecharge != null">
+        percapitarecharge = #{percapitarecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="sum != null">
+        recharge = #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="rechargepersonnum != null">
+        rechargepersonnum = #{rechargepersonnum,jdbcType=INTEGER},
+      </if>
+      <if test="i != null">
+        totaltype = #{i,jdbcType=INTEGER},
+      </if>
+      <if test="total102 != null">
+        viprecharge = #{total102,jdbcType=DOUBLE},
+      </if>
+      <if test="numCount102 != null">
+        viprechargenum = #{numCount102,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+
+  <!--//实例化更新后本月和全部收益及数据(新用户)-->
+  <insert id="addDistributorTotal">
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into distributortotalymd
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="distridutionId != null">
+        distridutionid,
+      </if>
+      <if test="date != null">
+        impldate,
+      </if>
+      <if test="total != null">
+        ordinaryrecharge,
+      </if>
+      <if test="numCount != null">
+        ordinaryrechargenum,
+      </if>
+      <if test="percapitarecharge != null">
+        percapitarecharge,
+      </if>
+      <if test="sum != null">
+        recharge,
+      </if>
+      <if test="rechargepersonnum != null">
+        rechargepersonnum,
+      </if>
+      <if test="i != null">
+        totaltype,
+      </if>
+      <if test="total102 != null">
+        viprecharge,
+      </if>
+      <if test="numCount102 != null">
+        viprechargenum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="distridutionId != null">
+        #{distridutionId,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null">
+        #{date,jdbcType=VARCHAR},
+      </if>
+      <if test="total != null">
+        #{total,jdbcType=DOUBLE},
+      </if>
+      <if test="numCount != null">
+        #{numCount,jdbcType=INTEGER},
+      </if>
+      <if test="percapitarecharge != null">
+        #{percapitarecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="sum != null">
+        #{sum,jdbcType=DOUBLE},
+      </if>
+      <if test="rechargepersonnum != null">
+        #{rechargepersonnum,jdbcType=INTEGER},
+      </if>
+      <if test="i != null">
+        #{i,jdbcType=INTEGER},
+      </if>
+      <if test="total102 != null">
+        #{total102,jdbcType=DOUBLE},
+      </if>
+      <if test="numCount102 != null">
+        #{numCount102,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
 </mapper>

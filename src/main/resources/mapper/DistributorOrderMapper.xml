@@ -224,7 +224,109 @@
     SELECT
     <include refid="Custom_Sql"/>
     FROM Distributororder WHERE totalType=1 AND distridutionId=#{authorization,jdbcType=VARCHAR}
-    AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt; date(implDate)
+    AND DATE_SUB(CURDATE(), INTERVAL 30 DAY) &lt; date(implDate) ORDER BY implDate DESC
   </select>
+
+  <!--增加每天各个渠道商的各项数据-->
+  <insert id="addDistributorOrderTotal">
+    <selectKey keyProperty="id" resultType="String" order="BEFORE">
+      select replace(uuid(),'-','') from dual
+    </selectKey>
+    insert into distributororder
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="distridutionid != null">
+        distridutionId,
+      </if>
+      <if test="impldate != null">
+        implDate,
+      </if>
+      <if test="noordinaryrechargenum != null">
+        noOrdinaryRechargeNum,
+      </if>
+      <if test="noviprechargenum != null">
+        noVipRechargeNum,
+      </if>
+      <if test="ordinarycompletionrate != null">
+        ordinaryCompletionRate,
+      </if>
+      <if test="ordinaryrecharge != null">
+        ordinaryRecharge,
+      </if>
+      <if test="ordinaryrechargenum != null">
+        ordinaryRechargeNum,
+      </if>
+      <if test="percapitarecharge != null">
+        perCapitaRecharge,
+      </if>
+      <if test="recharge != null">
+        recharge,
+      </if>
+      <if test="rechargepersonnum != null">
+        rechargePersonNum,
+      </if>
+      <if test="vipcompletionrate != null">
+        vipCompletionRate,
+      </if>
+      <if test="viprecharge != null">
+        vipRecharge,
+      </if>
+      <if test="viprechargenum != null">
+        vipRechargeNum,
+      </if>
+      <if test="totaltype != null">
+        totalType,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="distridutionid != null">
+        #{distridutionid,jdbcType=VARCHAR},
+      </if>
+      <if test="impldate != null">
+        #{impldate,jdbcType=VARCHAR},
+      </if>
+      <if test="noordinaryrechargenum != null">
+        #{noordinaryrechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="noviprechargenum != null">
+        #{noviprechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="ordinarycompletionrate != null">
+        #{ordinarycompletionrate,jdbcType=DOUBLE},
+      </if>
+      <if test="ordinaryrecharge != null">
+        #{ordinaryrecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="ordinaryrechargenum != null">
+        #{ordinaryrechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="percapitarecharge != null">
+        #{percapitarecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="recharge != null">
+        #{recharge,jdbcType=DOUBLE},
+      </if>
+      <if test="rechargepersonnum != null">
+        #{rechargepersonnum,jdbcType=INTEGER},
+      </if>
+      <if test="vipcompletionrate != null">
+        #{vipcompletionrate,jdbcType=DOUBLE},
+      </if>
+      <if test="viprecharge != null">
+        #{viprecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="viprechargenum != null">
+        #{viprechargenum,jdbcType=INTEGER},
+      </if>
+      <if test="totaltype != null">
+        #{totaltype,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
 
 </mapper>

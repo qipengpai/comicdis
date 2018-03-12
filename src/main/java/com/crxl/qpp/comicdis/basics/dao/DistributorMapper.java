@@ -5,6 +5,8 @@ import com.crxl.qpp.comicdis.basics.entity.data.DistributorData;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 @Repository
 public interface DistributorMapper {
     int deleteByPrimaryKey(String id);
@@ -36,4 +38,13 @@ public interface DistributorMapper {
 
     //（暫時不用）查詢用戶角色
     DistributorData getDistributorData(@Param("username") String username);
+
+    //查询所有ID qd
+    List<Distributor> selectAllIdQd();
+
+    //增加已结算收益
+    boolean updateReCharge(@Param("allrecharge")Double allrecharge,@Param("id")  String id);
+
+    //查询所有
+    List<Distributor> selectAllIdQd2();
 }

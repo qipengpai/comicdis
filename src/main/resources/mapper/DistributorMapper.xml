@@ -310,4 +310,25 @@
 
   </select>
 
+  <!--查询所有ID QD-->
+  <select id="selectAllIdQd" resultMap="BaseResultMap">
+    SELECT id,qd,proportion FROM Distributor
+  </select>
+
+  <update id="updateReCharge">
+    update distributor
+    <set>
+      <if test="allrecharge != null">
+        allRecharge = #{allrecharge,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+
+  <!--查询所有算账-->
+  <select id="selectAllIdQd2" resultMap="BaseResultMap">
+    SELECT id,qd,proportion,nickName,allRecharge FROM Distributor
+  </select>
+
+
 </mapper>

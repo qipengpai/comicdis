@@ -1,6 +1,8 @@
 package com.crxl.qpp.comicdis.basics.entity;
 
-public class News {
+import java.io.Serializable;
+
+public class News implements Serializable {
     private String id;
 
     private String content;
