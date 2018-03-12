@@ -41,10 +41,19 @@ public class DistributorOrderController {
             DistributorOrderData distributorOrderData=new DistributorOrderData();
             distributorOrderData.setDistridutionid(list.get(i).getDistridutionid());
             distributorOrderData.setId(list.get(i).getId());
+            if(list.get(i).getImpldate().length()>10){
+                list.get(i).setImpldate(list.get(i).getImpldate().substring(0, 11));
+            }else{
+                list.get(i).setImpldate(list.get(i).getImpldate());
+            }
             distributorOrderData.setImpldate(list.get(i).getImpldate());
             distributorOrderData.setOrdinaryrecharge(list.get(i).getOrdinaryrecharge()+"");
             distributorOrderData.setOrdinaryrechargenum(list.get(i).getOrdinaryrechargenum()+"");
-            distributorOrderData.setPercapitarecharge((list.get(i).getPercapitarecharge()+"").substring(0,(list.get(i).getPercapitarecharge()+"").lastIndexOf(".")+4));
+            if(list.get(i).getPercapitarecharge()>0){
+                distributorOrderData.setPercapitarecharge((list.get(i).getPercapitarecharge()+"").substring(0,(list.get(i).getPercapitarecharge()+"").lastIndexOf(".")+4));
+            }else{
+                distributorOrderData.setPercapitarecharge("0");
+            }
             distributorOrderData.setRecharge(list.get(i).getRecharge()+"");
             distributorOrderData.setRechargepersonnum(list.get(i).getRechargepersonnum()+"");
             distributorOrderData.setTotaltype(list.get(i).getTotaltype());

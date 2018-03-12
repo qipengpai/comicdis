@@ -39,6 +39,11 @@ public class DistributorNewsController {
         if (!ParaClick.clickList(list)) {
             return new Model(500, "查询失败");
         }
+        for (DistributorNews distributorNews:list) {
+            if(distributorNews.getImpldate().length()>10) {
+                distributorNews.setImpldate(distributorNews.getImpldate().substring(0, 11));
+            }
+        }
         return new Model(list);
     }
 }
