@@ -38,7 +38,12 @@ public class DateUtil {
 		}
 		return date;
 	}
-	
+
+	public static String getYesterday(){
+		Calendar cal = Calendar.getInstance();
+		cal.add(Calendar.DATE, -1);
+		return new SimpleDateFormat("yyyy-MM-dd").format(cal.getTime());
+	}
 	/**
 	 * 将时间转化为本地星期
 	 * @author Administrator

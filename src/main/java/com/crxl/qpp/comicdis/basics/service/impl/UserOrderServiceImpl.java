@@ -50,6 +50,14 @@ public class UserOrderServiceImpl {
         return userOrderMapper.getUserOrderWithdrawals(qd, orderDescription);
     }
 
+    /**
+     *    每日定时更新各渠道商本月和总数据
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:37
+     * @param []
+     * @return boolean
+     */
     @Transactional(propagation = Propagation.REQUIRED)
     public boolean distributorTotalYmd() {
         // 累计统计最近一个月和总充值
@@ -99,6 +107,14 @@ public class UserOrderServiceImpl {
         }
         return flag;
     }
+    /**
+     *    每日定时生成各渠道商各项数据统计
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:36
+     * @param []
+     * @return boolean
+     */
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
     public boolean distributorOrderTotal() {
         // 定时统计每天各个渠道商的各项数据
@@ -110,12 +126,11 @@ public class UserOrderServiceImpl {
             for (Distributor distributor : list) {
                 Withdrawals numSum = userOrderMapper.distributorOrderTotal(distributor.getQd(), "101");
                 Withdrawals numSum2 = userOrderMapper.distributorOrderTotal(distributor.getQd(), "102");
-                String date= DateUtil.getdate_yyyy_MM_dd_HH_MM_SS();
+                String date= DateUtil.getYesterday();
                 Double add=ArithUtil.add(numSum.getTotal(),numSum2.getTotal());
                 Double a=0.0;
-                if(add>0){
+                if(add>0)
                     a=add/(numSum.getUserCount()+numSum2.getUserCount());
-                }
                 int flag2 = distributorOrderMapper
                             .addDistributorOrderTotal(distributor.getId(),date,1,add,
                                     numSum.getTotal(),numSum.getNumCount(),0,0.0,
@@ -132,14 +147,19 @@ public class UserOrderServiceImpl {
         return flag;
     }
 
+    /**
+     *    每日定时生成结算单
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:36
+     * @param []
+     * @return boolean
+     */
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
     public boolean distributorWithdrawals() {
         // 生成待结算单
         boolean flag=true;
-        Calendar cal = Calendar.getInstance();
-        cal.add(Calendar.DATE, -1);
-        String yesterday = new SimpleDateFormat("yyyy-MM-dd").format(cal
-                .getTime());
+        String yesterday = DateUtil.getYesterday();
         DecimalFormat df = new DecimalFormat("#.00");
         try {
             List<Distributor> list = distributorMapper.selectAllIdQd2();
@@ -157,7 +177,7 @@ public class UserOrderServiceImpl {
                 }
                 boolean flag2=distributorWithdrawalsMapper.addDistributorWithdrawals(numSum.getTotal(),sum,
                         numSum.getNumCount(),distributor.getId(),distributor.getProportion(),
-                        distributor.getNickname(),date,1,yesterday);
+                        distributor.getNickname(),date,0,yesterday);
                 if (!flag2)
                     throw new BusinessException("异常");
                 boolean flag3=distributorMapper.updateReCharge(ArithUtil.add(sum,distributor.getAllrecharge()),distributor.getId());

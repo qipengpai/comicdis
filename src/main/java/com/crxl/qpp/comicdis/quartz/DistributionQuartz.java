@@ -13,8 +13,15 @@ public class DistributionQuartz {
     @Autowired
     private UserOrderServiceImpl userOrderServiceImpl;
 
-
-    @Scheduled(cron = "0 3 0 ? * *")
+    /**
+     *    更新distributorTotalYmd数据
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:33
+     * @param []
+     * @return void
+     */
+    @Scheduled(cron = "0 13 1 * * ?")
     public void distributorTotalYmd() throws Exception {
         if (userOrderServiceImpl.distributorTotalYmd()) {
             System.out.println("----------------更新distributorTotalYmd数据成功---------------");
@@ -24,7 +31,15 @@ public class DistributionQuartz {
         System.out.println("执行调度任务：" + new Date());
     }
 
-    @Scheduled(cron = "0 2 0 ? * *")
+    /**
+     *    更新DistributorOrderTotal数据
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:34
+     * @param []
+     * @return void
+     */
+    @Scheduled(cron = "0 11 1 * * ?")
     public void distributorTotal() throws Exception {
         if (userOrderServiceImpl.distributorOrderTotal()) {
             System.out.println("----------------更新DistributorOrderTotal数据成功---------------");
@@ -33,7 +48,15 @@ public class DistributionQuartz {
         }
     }
 
-    @Scheduled(cron = "0 1 0 ? * *") //每2秒执行一次
+    /**
+     *    更新distributorWithdrawals数据
+     *
+     * @author pengpai
+     * @date 2018/3/13 11:34
+     * @param []
+     * @return void
+     */
+    @Scheduled(cron = "0 12 1 * * ?") //每2秒执行一次
     public void distributorWithdrawals() {
         if (userOrderServiceImpl.distributorWithdrawals()) {
             System.out.println("----------------更新distributorWithdrawals数据成功---------------");
