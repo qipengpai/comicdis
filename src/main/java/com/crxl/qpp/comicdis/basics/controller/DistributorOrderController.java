@@ -34,23 +34,22 @@ public class DistributorOrderController {
         List<DistributorOrderData> array=new ArrayList<>();
         //  查询分销商最近30天每天收益
         List<DistributorOrder> list= distributorOrderServiceImpl.selectOrderTotalNear30Days(id);
-        if (!ParaClick.clickList(list)) {
+        if (!ParaClick.clickList(list))
             return new Model(500, "查询失败");
-        }
         for (int i = 0; i <list.size() ; i++) {
             DistributorOrderData distributorOrderData=new DistributorOrderData();
             distributorOrderData.setDistridutionid(list.get(i).getDistridutionid());
             distributorOrderData.setId(list.get(i).getId());
-            if(list.get(i).getImpldate().length()>10){
-                list.get(i).setImpldate(list.get(i).getImpldate().substring(0, 11));
-            }else{
-                list.get(i).setImpldate(list.get(i).getImpldate());
-            }
+            list.get(i).setImpldate(list.get(i).getImpldate());
             distributorOrderData.setImpldate(list.get(i).getImpldate());
             distributorOrderData.setOrdinaryrecharge(list.get(i).getOrdinaryrecharge()+"");
             distributorOrderData.setOrdinaryrechargenum(list.get(i).getOrdinaryrechargenum()+"");
             if(list.get(i).getPercapitarecharge()>0){
-                distributorOrderData.setPercapitarecharge((list.get(i).getPercapitarecharge()+"").substring(0,(list.get(i).getPercapitarecharge()+"").lastIndexOf(".")+4));
+                if ((list.get(i).getPercapitarecharge()+"").length()>6) {
+                    distributorOrderData.setPercapitarecharge((list.get(i).getPercapitarecharge() + "").substring(0, (list.get(i).getPercapitarecharge() + "").lastIndexOf(".") + 4));
+                }else{
+                    distributorOrderData.setPercapitarecharge(list.get(i).getPercapitarecharge() + "");
+                }
             }else{
                 distributorOrderData.setPercapitarecharge("0");
             }
