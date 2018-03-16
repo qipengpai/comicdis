@@ -160,7 +160,7 @@
     AND withdrawalsDate &gt; #{startDate,jdbcType=VARCHAR} AND withdrawalsDate &lt; #{endDate,jdbcType=VARCHAR}
   </select>
 
-
+  <!--增加分销商每日结算单-->
   <insert id="addDistributorWithdrawals">
     <selectKey keyProperty="id" resultType="String" order="BEFORE">
       select replace(uuid(),'-','') from dual

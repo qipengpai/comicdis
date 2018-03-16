@@ -99,4 +99,15 @@ public class DistributorServiceImpl {
     public DistributorData getDistributorData(String username) {
         return distributorMapper.getDistributorData(username);
     }
+    /**
+     *     查询分销商 总收益 结算收益
+     *
+     * @author pengpai
+     * @date 2018/3/14 12:12
+     * @param [id]
+     * @return com.crxl.qpp.comicdis.basics.entity.Distributor
+     */
+    public Distributor getDistributorProfitById(String id) {
+        return distributorMapper.getDistributorProfitById(id);
+    }
 }

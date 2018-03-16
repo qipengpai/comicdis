@@ -21,7 +21,7 @@ public class DistributionQuartz {
      * @param []
      * @return void
      */
-    @Scheduled(cron = "0 13 1 * * ?")
+    @Scheduled(cron = "0 32 11 * * ?")
     public void distributorTotalYmd() throws Exception {
         if (userOrderServiceImpl.distributorTotalYmd()) {
             System.out.println("----------------更新distributorTotalYmd数据成功---------------");
@@ -39,7 +39,7 @@ public class DistributionQuartz {
      * @param []
      * @return void
      */
-    @Scheduled(cron = "0 11 1 * * ?")
+    @Scheduled(cron = "0 32 11 * * ?")
     public void distributorTotal() throws Exception {
         if (userOrderServiceImpl.distributorOrderTotal()) {
             System.out.println("----------------更新DistributorOrderTotal数据成功---------------");
@@ -56,7 +56,7 @@ public class DistributionQuartz {
      * @param []
      * @return void
      */
-    @Scheduled(cron = "0 12 1 * * ?") //每2秒执行一次
+    @Scheduled(cron = "0 32 11 * * ?") //每2秒执行一次
     public void distributorWithdrawals() {
         if (userOrderServiceImpl.distributorWithdrawals()) {
             System.out.println("----------------更新distributorWithdrawals数据成功---------------");

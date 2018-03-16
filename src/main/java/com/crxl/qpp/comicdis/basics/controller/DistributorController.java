@@ -67,6 +67,24 @@ public class DistributorController {
             return new Model(500, "修改密码失败");
         return new Model(200, "修改密码成功");
     }
+
+    /**
+     *    查询分销商 总收益 结算收益
+     *
+     * @author pengpai
+     * @date 2018/3/14 12:11
+     * @param [id]
+     * @return com.crxl.qpp.comicdis.tool.Model
+     */
+    @RequestMapping(value = ActionUrl.DISTRIBUTOR_GET_TOTALPROFIT, method = RequestMethod.POST)
+    public Model userTotalProfit(@RequestParam("id") String id)
+            throws Exception {
+        //  查询
+        Distributor distributorId = distributorService.getDistributorProfitById(id);
+        if (distributorId==null)
+            return new Model(500, "查询失败");
+        return new Model(distributorId);
+    }
     /**
      *    401
      *

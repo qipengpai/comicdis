@@ -42,9 +42,12 @@ public interface DistributorMapper {
     //查询所有ID qd
     List<Distributor> selectAllIdQd();
 
-    //增加已结算收益
-    boolean updateReCharge(@Param("allrecharge")Double allrecharge,@Param("id")  String id);
+    //定时器统计后增家分销商总收益和未领取收益
+    int updateReCharge(@Param("allrecharge")Double allrecharge,@Param("id")  String id,@Param("balance")Double balance);
 
     //查询所有
     List<Distributor> selectAllIdQd2();
+
+    // 查询分销商 总收益 结算收益
+    Distributor getDistributorProfitById(@Param("id") String id);
 }

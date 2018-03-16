@@ -497,6 +497,8 @@ public class ActionUrl {
 	public static final String DISTRIBUTOR_GET_USERORDER_WITHDRAWALS="/crxl/qpp/distributor/userOrder/getUserOrderWithdrawals";
 	//查询分销商公告
 	public static final String DISTRIBUTOR_GET_NEWS="/crxl/qpp/distributor/getNews";
+	//查询分销商总收益部分
+	public static final String DISTRIBUTOR_GET_TOTALPROFIT="/crxl/qpp/distributor/getTotalProfit";
 
 
 

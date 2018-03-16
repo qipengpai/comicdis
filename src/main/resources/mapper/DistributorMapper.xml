@@ -315,11 +315,15 @@
     SELECT id,qd,proportion FROM Distributor
   </select>
 
+  <!--定时器统计后增家分销商总收益和未领取收益-->
   <update id="updateReCharge">
     update distributor
     <set>
       <if test="allrecharge != null">
         allRecharge = #{allrecharge,jdbcType=DOUBLE},
+      </if>
+      <if test="balance != null">
+        balance = #{balance,jdbcType=DOUBLE}
       </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
@@ -327,8 +331,12 @@
 
   <!--查询所有算账-->
   <select id="selectAllIdQd2" resultMap="BaseResultMap">
-    SELECT id,qd,proportion,nickName,allRecharge FROM Distributor
+    SELECT id,qd,proportion,nickName,allRecharge,balance FROM Distributor
   </select>
 
+  <!--查询分销商 总收益 结算收益-->
+  <select id="getDistributorProfitById" resultMap="BaseResultMap">
+    SELECT id,allRecharge,balance,overRecharge FROM Distributor WHERE id=#{id,jdbcType=VARCHAR}
+  </select>
 
 </mapper>

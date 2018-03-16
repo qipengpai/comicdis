@@ -95,7 +95,6 @@ public class UserOrderServiceImpl {
                                     distributorTotalYmd.get(1).getId(), 2, sum2.getTotal(), sum2.getNumCount()
                                     ,date,ArithUtil.add(sum.getTotal(),sum2.getTotal()),
                                     0.0,0,distributor.getId());
-
                     if (flag4 < 1||flag5<1)
                         throw new BusinessException("异常");
                 }
@@ -159,7 +158,7 @@ public class UserOrderServiceImpl {
     public boolean distributorWithdrawals() {
         // 生成待结算单
         boolean flag=true;
-        String yesterday = DateUtil.getYesterday();
+        String yesterday = DateUtil.getYesterday()+" 12:23:34";
         DecimalFormat df = new DecimalFormat("#.00");
         try {
             List<Distributor> list = distributorMapper.selectAllIdQd2();
@@ -175,13 +174,17 @@ public class UserOrderServiceImpl {
                             .parseDouble(numSum.getTotal().toString()) * 0.01))
                             * distributor.getProportion()));
                 }
-                boolean flag2=distributorWithdrawalsMapper.addDistributorWithdrawals(numSum.getTotal(),sum,
+                //增加分销商结算单增加分销商结算单
+                int flag2=distributorWithdrawalsMapper.addDistributorWithdrawals(numSum.getTotal(),sum,
                         numSum.getNumCount(),distributor.getId(),distributor.getProportion(),
                         distributor.getNickname(),date,0,yesterday);
-                if (!flag2)
+                if (flag2<0)
                     throw new BusinessException("异常");
-                boolean flag3=distributorMapper.updateReCharge(ArithUtil.add(sum,distributor.getAllrecharge()),distributor.getId());
-                if (!flag3)
+                //定时器统计后增家分销商总收益和未领取收益
+                double a=ArithUtil.add(sum,distributor.getAllrecharge());
+                double b=ArithUtil.add(sum,distributor.getBalance());
+                int flag3=distributorMapper.updateReCharge(a,distributor.getId(),b);
+                if (flag3<0)
                     throw new BusinessException("异常");
             }
         } catch (Exception e) {

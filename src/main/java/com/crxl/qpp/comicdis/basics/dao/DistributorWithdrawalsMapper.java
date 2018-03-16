@@ -23,8 +23,8 @@ public interface DistributorWithdrawalsMapper {
     //分页 时间查询结算单
     Page<DistributorWithdrawals> selectWithdrawals(@Param("authorization") String authorization, @Param("startDate") String startDate, @Param("endDate") String endDate);
 
-    //增加每日结算单
-    boolean addDistributorWithdrawals(@Param("todayrecharge") Double todayrecharge,@Param("withdrawalsmoney") Double withdrawalsmoney,
+    //增加分销商每日结算单
+    int addDistributorWithdrawals(@Param("todayrecharge") Double todayrecharge,@Param("withdrawalsmoney") Double withdrawalsmoney,
                                       @Param("ordersum")Integer ordersum,@Param("distridutionid") String distridutionid,
                                       @Param("proportion")Double proportion, @Param("remarks")String remarks,
                                       @Param("impldate")String impldate,@Param("withdrawalsstate")Integer withdrawalsstate,
