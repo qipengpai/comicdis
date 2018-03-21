@@ -158,6 +158,7 @@
     FROM Distributorwithdrawals WHERE distridutionId = #{authorization,jdbcType=VARCHAR}
     AND DATE_SUB(CURDATE(), INTERVAL 61 DAY) &lt; date(withdrawalsDate)
     AND withdrawalsDate &gt; #{startDate,jdbcType=VARCHAR} AND withdrawalsDate &lt; #{endDate,jdbcType=VARCHAR}
+    ORDER BY withdrawalsDate DESC
   </select>
 
   <!--增加分销商每日结算单-->
