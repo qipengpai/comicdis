@@ -35,4 +35,7 @@ public interface UserOrderMapper {
 
     //定时统计各分销商昨日结算单
     Withdrawals selectDistributorWithdrawals(@Param("qd")String qd);
+
+    //查该分销商今日收益
+    Withdrawals distributorTotalToday(@Param("qd")String qd, @Param("description")String description);
 }

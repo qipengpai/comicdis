@@ -21,7 +21,7 @@ public class DistributionQuartz {
      * @param []
      * @return void
      */
-    @Scheduled(cron = "0 1 0 * * ?")
+    @Scheduled(cron = "0 9 0 * * ?")
     public void distributorTotalYmd() throws Exception {
         if (userOrderServiceImpl.distributorTotalYmd()) {
             System.out.println("----------------更新distributorTotalYmd数据成功---------------");

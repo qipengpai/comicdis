@@ -71,29 +71,43 @@ public class UserOrderServiceImpl {
                 Withdrawals numSum2 = userOrderMapper.distributorTotalYmd(distributor.getQd(), "102");
                 Withdrawals sum = userOrderMapper.distributorTotalAll(distributor.getQd(), "101");
                 Withdrawals sum2 = userOrderMapper.distributorTotalAll(distributor.getQd(), "102");
+                Withdrawals now = userOrderMapper.distributorTotalToday(distributor.getQd(), "101");
+                Withdrawals now2 = userOrderMapper.distributorTotalToday(distributor.getQd(), "102");
                 List<DistributorTotalYmd> distributorTotalYmd = distributorTotalYmdMapper.selectByDistributorId(distributor.getId());
                 String date= DateUtil.getdate_yyyy_MM_dd_HH_MM_SS();
+                double total=ArithUtil.add(numSum.getTotal(),numSum2.getTotal());
+                double total1=ArithUtil.add(sum.getTotal(),sum2.getTotal());
+                double total2=ArithUtil.add(now.getTotal(),now2.getTotal());
                 if (!ParaClick.clickList(distributorTotalYmd)) {
+
                     int flag2 = distributorTotalYmdMapper
-                            .addDistributorTotal(numSum.getTotal(), numSum.getNumCount(),
-                                    distributor.getId(), 1, numSum2.getTotal(), numSum2.getNumCount(),date,
-                                    ArithUtil.add(numSum.getTotal(),numSum2.getTotal()),0.0,0);
+                            .addDistributorTotal(ArithUtil.sub(numSum.getTotal(),now.getTotal()),
+                                    numSum.getNumCount()-now.getNumCount(),
+                                    distributor.getId(), 1, ArithUtil.sub(numSum2.getTotal(),now2.getTotal()),
+                                    numSum2.getNumCount()-now2.getNumCount(),date,
+                                    ArithUtil.sub(total,total2),0.0,0);
                     int flag3 = distributorTotalYmdMapper
-                            .addDistributorTotal(sum.getTotal(), sum2.getNumCount(),
-                                    distributor.getId(), 2, sum2.getTotal(), sum2.getNumCount()
-                                    ,date,ArithUtil.add(sum.getTotal(),sum2.getTotal()),0.0,0);
+                            .addDistributorTotal(ArithUtil.sub(sum.getTotal(),now.getTotal()),
+                                    sum2.getNumCount()-now.getNumCount(),
+                                    distributor.getId(), 2, ArithUtil.sub(sum2.getTotal(),now2.getTotal()),
+                                    sum2.getNumCount()-now2.getNumCount()
+                                    ,date,ArithUtil.sub(total1,total2),0.0,0);
                     if (flag2 < 1||flag3<1)
                         throw new BusinessException("异常");
                 } else {
                     int flag4 = distributorTotalYmdMapper
-                            .updateDistributorTotal(numSum.getTotal(), numSum.getNumCount(),
-                                    distributorTotalYmd.get(0).getId(), 1, numSum2.getTotal(), numSum2.getNumCount(),
-                                   date,ArithUtil.add(numSum.getTotal(),numSum2.getTotal()),
+                            .updateDistributorTotal(ArithUtil.sub(numSum.getTotal(),now.getTotal()),
+                                    numSum.getNumCount()-now.getNumCount(),
+                                    distributorTotalYmd.get(0).getId(), 1,ArithUtil.sub(numSum2.getTotal(),now2.getTotal()),
+                                    numSum2.getNumCount()-now2.getNumCount(),
+                                   date,ArithUtil.sub(total,total2),
                                     0.0,0,distributor.getId());
                     int flag5 = distributorTotalYmdMapper
-                            .updateDistributorTotal(sum.getTotal(), sum.getNumCount(),
-                                    distributorTotalYmd.get(1).getId(), 2, sum2.getTotal(), sum2.getNumCount()
-                                    ,date,ArithUtil.add(sum.getTotal(),sum2.getTotal()),
+                            .updateDistributorTotal(ArithUtil.sub(sum.getTotal(),now.getTotal()),
+                                    sum.getNumCount()-now.getNumCount(),
+                                    distributorTotalYmd.get(1).getId(), 2, ArithUtil.sub(sum2.getTotal(),now2.getTotal()),
+                                    sum2.getNumCount()-now2.getNumCount()
+                                    ,date,ArithUtil.sub(total1,total2),
                                     0.0,0,distributor.getId());
                     if (flag4 < 1||flag5<1)
                         throw new BusinessException("异常");
@@ -155,7 +169,8 @@ public class UserOrderServiceImpl {
      * @return boolean
      */
     @Transactional(propagation = Propagation.REQUIRED,rollbackFor=Exception.class)
-    public boolean distributorWithdrawals() {
+    public boolean
+    distributorWithdrawals() {
         // 生成待结算单
         boolean flag=true;
         String yesterday = DateUtil.getYesterday()+" 12:23:34";

@@ -103,4 +103,10 @@
       state = #{state,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
+
+  <!-- 登录-->
+  <select id="selectByLogin" resultMap="BaseResultMap">
+    select * from distributioncover
+    where cartoonId=#{cartoonid} and implDate=#{impldate}
+  </select>
 </mapper>

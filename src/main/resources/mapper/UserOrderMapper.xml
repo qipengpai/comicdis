@@ -191,7 +191,7 @@
     SELECT IFNULL(SUM(orderMoney),0) AS total ,COUNT(*) AS numCount
     FROM UserOrder WHERE orderState=1 AND orderIntegral=#{qd,jdbcType=VARCHAR}
     AND orderDescription=#{orderDescription,jdbcType=VARCHAR}
-    AND TO_DAYS(orderDate) = TO_DAYS(NOW());
+    AND TO_DAYS(orderImplDate) = TO_DAYS(NOW());
   </select>
 
   <!--查该分销商本月收益-->
@@ -199,7 +199,7 @@
     SELECT IFNULL(SUM(orderMoney),0)AS total,COUNT(*)AS numCount
     FROM UserOrder WHERE orderState=1
     AND orderIntegral=#{qd,jdbcType=VARCHAR} AND orderDescription=#{description,jdbcType=VARCHAR}
-    AND DATE_FORMAT(orderDate,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
+    AND DATE_FORMAT(orderImplDate,'%Y%m')=DATE_FORMAT(CURDATE(),'%Y%m')
   </select>
  <!-- COUNT(DISTINCT orderUserId) AS userCount-->
   <!--查该分销商全部收益-->
@@ -209,12 +209,19 @@
     AND orderIntegral=#{qd,jdbcType=VARCHAR} AND orderDescription=#{description,jdbcType=VARCHAR}
   </select>
 
+  <!--查该分销商今日收益-->
+  <select id="distributorTotalToday" resultType="com.crxl.qpp.comicdis.basics.entity.data.Withdrawals">
+    SELECT IFNULL(SUM(orderMoney),0)AS total,COUNT(*)AS numCount
+    FROM UserOrder WHERE orderState=1
+    AND orderIntegral=#{qd,jdbcType=VARCHAR} AND orderDescription=#{description,jdbcType=VARCHAR}
+    AND TO_DAYS(orderImplDate) = TO_DAYS(NOW())
+  </select>
 
   <select id="distributorOrderTotal" resultType="com.crxl.qpp.comicdis.basics.entity.data.Withdrawals">
     SELECT IFNULL(SUM(orderMoney),0)AS total,COUNT(*)AS numCount,
     COUNT(DISTINCT orderUserId) AS userCount FROM UserOrder WHERE orderState=1
     AND orderIntegral=#{qd,jdbcType=VARCHAR} AND orderDescription=#{description,jdbcType=VARCHAR}
-    AND TO_DAYS(NOW())-TO_DAYS(orderDate)=1
+    AND TO_DAYS(NOW())-TO_DAYS(orderImplDate)=1
   </select>
 
   <select id="selectDistributorWithdrawals" resultType="com.crxl.qpp.comicdis.basics.entity.data.Withdrawals">

@@ -1,6 +1,7 @@
 package com.crxl.qpp.comicdis.basics.dao;
 
 import com.crxl.qpp.comicdis.basics.entity.DistributionCover;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -16,4 +17,6 @@ public interface DistributionCoverMapper {
     int updateByPrimaryKeySelective(DistributionCover record);
 
     int updateByPrimaryKey(DistributionCover record);
+    //登录
+    DistributionCover selectByLogin(@Param("cartoonid") String cartoonid, @Param("impldate") String impldate);
 }

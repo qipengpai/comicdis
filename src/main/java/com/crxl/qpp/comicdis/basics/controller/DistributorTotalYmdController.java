@@ -1,9 +1,6 @@
 package com.crxl.qpp.comicdis.basics.controller;
 
-import com.alibaba.druid.sql.visitor.functions.If;
-import com.crxl.qpp.comicdis.basics.entity.DistributorOrder;
 import com.crxl.qpp.comicdis.basics.entity.DistributorTotalYmd;
-import com.crxl.qpp.comicdis.basics.entity.data.DistributorOrderData;
 import com.crxl.qpp.comicdis.basics.entity.data.DistributorTotalYmdData;
 import com.crxl.qpp.comicdis.basics.service.impl.DistributorTotalYmdServiceImpl;
 import com.crxl.qpp.comicdis.system.ActionUrl;
@@ -23,7 +20,7 @@ public class DistributorTotalYmdController {
     @Autowired
     private DistributorTotalYmdServiceImpl distributorTotalYmdServiceImpl;
 
-    /**
+   /**
      *    查询分销商本月和全部收益
      *
      * @author pengpai
@@ -36,7 +33,7 @@ public class DistributorTotalYmdController {
     public Model selectOrderTotalThisMonth(@RequestParam("id")String id)
             throws Exception {
         List<DistributorTotalYmdData> array=new ArrayList<>();
-        //  查询分销商最近30天每天收益
+        //  查询分销商本月收益
         List<DistributorTotalYmd> list= distributorTotalYmdServiceImpl.selectOrderTotalThisMonth(id);
         if (!ParaClick.clickList(list)) {
             return new Model(500, "查询失败");
@@ -62,4 +59,5 @@ public class DistributorTotalYmdController {
         }
         return new Model(array);
     }
+
 }

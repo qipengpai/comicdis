@@ -66,6 +66,8 @@ public class ShiroConfig {
         filterRuleMap.put("/401", "anon");
      //   filterRuleMap.put("/403", "roles");
         filterRuleMap.put("/crxl/qpp/distributor/login", "anon");
+        filterRuleMap.put("/login", "anon");
+        filterRuleMap.put("/register", "anon");
         factoryBean.setFilterChainDefinitionMap(filterRuleMap);
         return factoryBean;
     }

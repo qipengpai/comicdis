@@ -348,7 +348,7 @@
         <if test="condition != null">
             AND cartoonName LIKE CONCAT('%',#{condition},'%')
         </if>
-        AND state=1 AND distributorstate=1
+        AND state=1 AND distributorstate=1 ORDER BY recommendationIndex DESC
     </select>
 
     <!--查询漫画根據id-->

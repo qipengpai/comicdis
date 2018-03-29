@@ -25,4 +25,5 @@ public class DistributorTotalYmdServiceImpl {
     public List<DistributorTotalYmd> selectOrderTotalThisMonth(String authorization) {
         return distributorTotalYmdMapper.selectOrderTotalThisMonth(authorization);
     }
+
 }
