@@ -115,4 +115,6 @@ public class JWTFilter extends BasicHttpAuthenticationFilter {
             LOGGER.error(e.getMessage());
         }
     }
+
+
 }
