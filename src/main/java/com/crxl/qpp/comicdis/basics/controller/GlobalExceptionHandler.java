@@ -26,6 +26,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(ShiroException.class)
     public Model handle401(ShiroException e) {
+        System.out.println(1);
         return new Model(401, e.getMessage(), null);
     }
 
@@ -40,6 +41,7 @@ public class GlobalExceptionHandler {
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     @ExceptionHandler(UnauthorizedException.class)
     public Model handle401() {
+        System.out.println(2);
         return new Model(401, "Unauthorized", null);
     }
 

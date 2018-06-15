@@ -96,6 +96,7 @@ public class DistributorController {
     @RequestMapping(path = "/401")
     @ResponseStatus(HttpStatus.UNAUTHORIZED)
     public Model unauthorized() {
+        System.out.println(3);
         return new Model(401, "Unauthorized", null);
     }
 }
